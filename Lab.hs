@@ -212,3 +212,29 @@ filtrarPrimos = filter esPrimo
 multiplicarPrimos :: [Int] -> Int
 multiplicarPrimos [] = 1
 multipilcarPrimos (x:xs) = product . filtrarPrimos 
+
+---------------
+
+duplica :: [Int] -> [Int]
+duplica [] = []
+duplica (x:xs) = (x*2) : duplica xs
+
+duplica2 :: [Int] -> [Int]
+duplica2 [] = []
+duplica2 (x:xs) = map (*2) (x:xs)
+
+---
+
+primIgualesA :: (Eq a) => a -> [a] -> [a]
+primIgualesA n [] = []
+primIgualesA n (x:xs) 
+		| x == n = x : primIgualesA n xs
+		| otherwise = []
+--Falta anexo B (takeWhile)
+
+primIguales :: (Eq a) => [a] -> [a]
+primIguales [] = []
+primIguales (x:y:xs) 
+                  | x == y = x : primIguales (y:xs)
+                  | otherwise = [x]
+-- Falta anexo B
