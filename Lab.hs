@@ -205,3 +205,10 @@ esPrimo n = not (existeDivisor n [2..(n-1)])
 factorial2 :: Int -> Int
 factorial2 n = productoria [1..n]
 -- que hago en casos de números negativos
+
+filtrarPrimos :: [Int] -> [Int]
+filtrarPrimos = filter esPrimo 
+
+multiplicarPrimos :: [Int] -> Int
+multiplicarPrimos [] = 1
+multipilcarPrimos (x:xs) = product . filtrarPrimos 
