@@ -278,3 +278,183 @@ primIguales (x:y:xs)
                   | x == y = x : primIguales (y:xs)
                   | otherwise = [x]
 -- Falta anexo B
+{-
+devuelve el primer elemento de una lista no vacía, o Nothing si la
+lista es vacía.
+Usando el tipo maybe ya predefinido: 
+data Maybe a = Nothing | Just a
+-}
+primerElemento :: [a] -> Maybe a
+primerElemento [] = Nothing
+primerElemento (x:xs) = Just x
+
+data ListaAsoc a b = Vacia | Nodo a b (ListaAsoc a b) deriving Show
+--type Diccionario = ListaAsoc String String
+--type Padron = ListaAsoc Int String
+
+laLong :: (ListaAsoc a b) -> Int
+laLong Vacia = 0
+laLong (Nodo a b Vacia) = 1
+laLong (Nodo a b x) = 1 + laLong x
+
+esnodo :: ListaAsoc a b -> Bool
+esnodo Vacia = False
+esnodo (Nodo a b x) = True
+
+concatL :: ListaAsoc a b -> ListaAsoc a b -> ListaAsoc a b
+concatL Vacia Vacia = Vacia
+concatL Vacia (Nodo a b x) = (Nodo a b x)
+concatL (Nodo a b x) Vacia = (Nodo a b x)
+concatL (Nodo a b Vacia) k = (Nodo a b k)
+concatL (Nodo a b x) h = Nodo a b (concatL x h)
+
+--- Sinonimos de tipo
+type Altura = Int
+type NumCamiseta = Int
+
+--- Tipos algebraicos sin parametros 
+data Zona = Arco | Defensa | Mediocampo | Delantera deriving (Eq, Show)
+data TipoReves = DosManos | UnaMano deriving (Eq, Show)
+data Modalidad = Carretera | Pista | Monte | BMX deriving (Eq, Show)
+data PiernaHabil = Izquierda | Derecha deriving (Eq, Show)
+
+--- Sinonimo
+type ManoHabil = PiernaHabil
+
+--- Deportista es un tipo algebraico con constructores parametricos
+data Deportista = Ajedrecista 
+                 | Ciclista Modalidad 
+                 | Velocista Altura 
+                 | Tenista TipoReves ManoHabil Altura 
+                 | Futbolista Zona NumCamiseta PiernaHabil Altura deriving (Eq, Show)
+
+
+{-
+dada una lista de deportistas xs, y una zona z, devuelve la cantidad de futbolistas incluidos en xs que juegan en la zona z. No usar igualdad, solo pattern matching.
+-}
+contarFutbolistas :: [Deportista] -> Zona -> Int
+contarFutbolistas [] _ = 0
+contarFutbolistas xs z = length (filter ( flip esZona z) (filter esFutbolista xs))
+-- flip lo usamos pq contarF recibe como 1° parametro deportista y como 2° zona y yo para aplicarlo lo necesito al reves
+-- aplicamos filter de esZona a la lista que devuelve filter esFutbolista
+
+contarVelocistas :: [Deportista] -> Int
+contarVelocistas [] = 0
+contarVelocistas xs = length (filter esVelocista xs)
+
+esVelocista :: Deportista -> Bool
+esVelocista (Velocista a ) = True
+esVelocista _ = False
+
+esFutbolista :: Deportista -> Bool
+esFutbolista (Futbolista a b c d) = True
+esFutbolista _ = False
+
+esZona :: Deportista -> Zona -> Bool
+esZona (Futbolista a b c d) z = a == z
+esZona _ _ = False
+
+data Cola = Vacía | Encolada Deportista Cola deriving Show
+
+{-
+elimina de la cola a la persona que esta en la primer posicion de una cola, por haber sido atendida. Si la cola esta vacıa, devuelve Nothing
+-}
+atender :: Cola -> Maybe Cola
+atender Vacía = Nothing
+atender (Encolada a Vacía) = Nothing
+atender (Encolada a (Encolada b c)) = Just (Encolada b c)
+
+{-
+agrega una persona a una cola de deportistas, en la ultima posicion.
+-}
+
+encolar :: Deportista -> Cola -> Cola
+encolar d Vacía = (Encolada d Vacía)
+encolar d (Encolada a b) = (Encolada d (Encolada a b)) 
+
+{-
+devuelve el/la primera futbolista dentro de la cola que juega en la zona que se corresponde con el segundo parametro. Si no hay futbolistas jugando en esa zona devuelve Nothing.
+-}
+
+busca :: Cola -> Zona -> Maybe Deportista
+busca Vacía _ = Nothing
+busca (Encolada (Futbolista a b c d) Vacía) z 
+   | a == z = Just (Futbolista a b c d)
+   | otherwise = Nothing
+busca (Encolada _ Vacía) z = Nothing
+busca (Encolada _ x) z = busca x z
+
+data NotasBásicas = Do | Re | Mi | Fa | Sol | La | Si deriving (Show, Ord, Eq)
+
+cifradoAmericano :: NotasBásicas -> String
+cifradoAmericano Do = "C"
+cifradoAmericano Re = "D"
+cifradoAmericano Mi = "E"
+cifradoAmericano Fa = "F"
+cifradoAmericano Sol = "G"
+cifradoAmericano La = "A"
+cifradoAmericano Si = "B"
+
+{-
+usando polimorfismo ad hoc (f :: (Ord a) => [a] -> a) la funcion minimoElemento que calcula (de manera recursiva) cual es el menor valor de una lista de tipo [a]. Asegurate que solo este definida para listas no vacıas.
+-}
+minimoElemento :: (Ord a, Num a) => [a] -> a
+minimoElemento xs = minimum xs
+
+{-
+De manera tal que el caso base de la recursion sea el de la lista vacıa. Para ello revisa la clase Bounded. 
+Ayuda: Para probar esta funcion dentro de ghci con listas vacıas, indica el tipo concreto con tipos de la clase Bounded, por ejemplo: ([1,5,10]::[Int]), ([]::[Bool]), etc.
+Bounded se utiliza solo en lista vacia
+-}
+
+minimoE :: (Ord a, Bounded a) => [a] -> a
+minimoE [] = minBound
+minimoE xs = minimum xs
+
+--- minBound :: Int    -- Devuelve el mínimo valor de Int
+--- maxBound :: Char   -- Devuelve el máximo valor de Char
+--- minBound :: Bool   -- Devuelve False
+--- maxBound :: Bool   -- Devuelve True
+
+{-
+Usa la funcion minimoElemento para determinar la nota mas grave de la melodıa
+-}
+
+masGrave :: [NotasBásicas] -> NotasBásicas
+masGrave xs = minimum xs
+
+sonidoNatural :: NotasBásicas -> Int
+sonidoNatural Do = 0
+sonidoNatural Re = 2
+sonidoNatural Mi = 4
+sonidoNatural Fa = 5
+sonidoNatural Sol = 7
+sonidoNatural La = 9
+sonidoNatural Si = 11
+
+data Alteración = Bemol | Sostenido | Natural deriving (Eq, Ord)
+data NotaMusical = Nota NotasBásicas Alteración deriving (Eq, Ord)
+
+{-
+devuelve el sonido de una nota, incrementando en uno su valor si tiene la alteracion Sostenido, decrementando en uno si tiene la alteracion Bemol y dejando su valor intacto si la alteracion es Natural
+-}
+
+sonidoCromatico :: NotaMusical -> Int
+sonidoCromatico (Nota n Natural) = sonidoNatural n
+sonidoCromatico (Nota n Bemol) = sonidoNatural n - 1
+sonidoCromatico (Nota n Sostenido) = sonidoNatural n + 1
+
+{-
+dos notas que tengan el mismo valor de sonidoCromatico se consideren iguales. 
+Requiere deriving Eq
+-}
+
+iguales :: NotaMusical -> NotaMusical -> Bool
+iguales (Nota n a) (Nota m b) = sonidoCromatico (Nota n a)  == sonidoCromatico (Nota m b)
+
+{-
+Se debe definir que una nota es menor o igual a otra si y solo si el valor de sonidoCromatico para la primera es menor o igual al valor de sonidoCromatico para la segunda.
+Requiere deriving Ord
+-}
+menorIgual :: NotaMusical -> NotaMusical -> Bool
+menorIgual (Nota n a) (Nota m b) = sonidoCromatico (Nota n a) <= sonidoCromatico (Nota m b) 
