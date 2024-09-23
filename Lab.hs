@@ -386,6 +386,13 @@ busca (Encolada _ x) z = busca x z
 
 data NotasBásicas = Do | Re | Mi | Fa | Sol | La | Si deriving (Show, Ord, Eq)
 
+{-
+¿Cómo se muestra cada valor? Clase Show
+¿Qué valores son iguales y distintos entre sí? Clase Eq
+Entre un par de valores, ¿cuál es el mayor, y el menor? Ord
+¿Cuál el máximo? ¿Cuál el mínimo? Bounded
+¿Para poder escribir [Lunes … Viernes]? Clase Enum
+-}
 cifradoAmericano :: NotasBásicas -> String
 cifradoAmericano Do = "C"
 cifradoAmericano Re = "D"
@@ -397,6 +404,7 @@ cifradoAmericano Si = "B"
 
 {-
 usando polimorfismo ad hoc (f :: (Ord a) => [a] -> a) la funcion minimoElemento que calcula (de manera recursiva) cual es el menor valor de una lista de tipo [a]. Asegurate que solo este definida para listas no vacıas.
+Polimorfismo ad hoc, definición: Una función que puede tener distintos comportamientos dependiendo del tipo concreto con que se use.
 -}
 minimoElemento :: (Ord a, Num a) => [a] -> a
 minimoElemento xs = minimum xs
@@ -437,6 +445,7 @@ data NotaMusical = Nota NotasBásicas Alteración deriving (Eq, Ord)
 
 {-
 devuelve el sonido de una nota, incrementando en uno su valor si tiene la alteracion Sostenido, decrementando en uno si tiene la alteracion Bemol y dejando su valor intacto si la alteracion es Natural
+El pattern matching es un mecanismo para definir funciones, donde damos reglas para las alternativas de un tipo de dato, mediante sus constructores.
 -}
 
 sonidoCromatico :: NotaMusical -> Int
