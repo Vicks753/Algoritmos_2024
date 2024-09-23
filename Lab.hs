@@ -19,11 +19,17 @@ esVocal c = c`elem` "aeiou"
 valorAbsoluto :: Int -> Int
 valorAbsoluto x = if x < 0 then x * (-1) else x
 
+valorAbsoluto :: Int -> Int
+valorAbsoluto x = abs x
+
 -------------------------- Laboratorio 2 -----------------------------------
 
 paratodo :: [Bool] -> Bool
 paratodo [] = True
 paratodo (x : xs) = x == True && (paratodo xs)
+
+paraTodo :: [Bool] -> Bool
+paraTodo xs = all (== True) xs
 
 ---
 
@@ -44,6 +50,9 @@ factorial :: Int -> Int
 factorial 0 = 1
 factorial n = n * factorial (n - 1) 
 
+factorial :: Int -> Int
+factorial n = product [1 .. n]
+
 ---
 
 promedio :: [Int] -> Int
@@ -61,6 +70,9 @@ mayorQue0 (x : xs) = x > 0 && mayorQue0 xs
 vale5 :: [Int] -> Bool
 vale5 [] = False
 vale5 (x : xs) = x == 5 || vale5 xs
+
+igualQue :: [Int] -> Int -> Bool
+igualQue xs n = any (== n) xs
 
 ---
 
@@ -91,6 +103,9 @@ promedio2 xs = sum xs `div` length xs
 menor :: (Ord a) => [a] -> [a] -> Bool
 menor x y = not (null x || null y) && maximum x < minimum y
 --- not (null x || null y) verifica que ninguna de las listas sea vacía
+
+maxiMini :: [Int] -> [Int] -> Bool
+maxiMini xs ys = not (null xs) && not (null ys) && maximum xs < minimum ys
 
 ---
 
@@ -134,6 +149,10 @@ filtrarPares = filter esPar
 productoPares :: [Int] -> Int
 productoPares = product . filtrarPares
 
+productoPar :: [Int] -> Int
+productoPar [] = 1
+productoPar (x:xs) = product (filter even xs)
+--- una aplicación distinta de filter es:  filter (\x -> x `mod` 3 == 0) xs (devuelve true si es divisible por 3)
 ---
 posicionPar :: [Int] -> [Int]
 posicionPar [] = []
@@ -149,6 +168,17 @@ paraTodo [] _ = True
 paraTodo (x : xs) f 
                     | f x = paraTodo xs f
                     | otherwise = False
+
+todoV :: [a] -> (a -> Bool) -> Bool
+todoV [] _ = True
+todoV (x:xs) f = f x && todoV xs f
+
+--- Se utiliza # xs - 1 para que no se salga del rango de la lista, el último índice válido de una lista es siempre length xs - 1, no length xs.
+-- por ejemplo, para una lista de longitud 5, los índices válidos son 0, 1, 2, 3, 4.
+-- Con [0, 2 .. 4] obtenemos [0, 2, 4], que son los índices pares correctos.
+-- Con [0, 2 .. 5] obtendríamos [0, 2, 4], que es lo mismo, pero conceptualmente incorrecto.
+---Se utiliza " . " para aplicar composición de funciones, se aplica como f(g(x))
+
 
 ---
 
@@ -179,12 +209,22 @@ esMultiplo :: Int -> Int -> Bool
 esMultiplo n x = x `mod` n == 0
 
 hayMultiplo :: Int -> [Int] -> Bool
+hayMultiplo n xs = not (null xs) && any (esMultiplo n) xs
+
+hayMultiplo :: Int -> [Int] -> Bool
 hayMultiplo n xs = not (null xs) && existe2 xs (esMultiplo n) 
+
+hayMultiplo2 :: Int -> [Int] -> Bool
+hayMultiplo2 n [] = False
+hayMultiplo2 n (x:xs) = esMultiplo n x || hayMultiplo2 n xs
 
 ---
 
 sumaCuadrados :: Int -> Int
 sumaCuadrados n = sum (map (^2) [0..n])
+
+sumaCuad :: Int -> Int
+sumaCuad x = sum [i^2 | i <- [1..x]]
 
 ---
 
