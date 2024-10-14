@@ -65,6 +65,283 @@
     printf ("Repreobado");
  }
 
+// Lab 1
+
+#include <stdio.h>
+#include <stdbool.h>
+
+int main () {
+
+ int x;
+ int y;
+ int z;
+
+ printf ("Ingrese el valor de x: \n");
+   scanf ( "%i" , &x);
+ 
+ printf ("Ingrese el valor de y: \n");
+   scanf ("%i", &y);
+ 
+ printf ("Ingrese el valor de z: \n");
+   scanf ("%i", &z);
+
+ int resultado1;
+  resultado1 = x + y + 1 ;
+
+  printf ("El resultado 1 es: %i \n" , resultado1);
+
+ int resultado2;
+  resultado2 = z * z + y * 45 - 15 * x ;
+
+   printf ("El resultado 2 es: %i \n" , resultado2);
+
+ bool resultado3;
+  resultado3 = y - 2 == (x * 3 + 1) % 5 ;
+
+   printf ("El resultado 3 es: %s \n" , resultado3 ? "verdadero" : "falso");
+
+
+ int resultado4;
+  resultado4 = y / 2 * x ;
+
+   printf ("El resultado 4 es: %i \n" , resultado4);
+
+ bool resultado5;
+  resultado5 = y < x * z ;
+   printf ("El resultado 5 es: %s \n" , resultado5 ? "verdadero" : "falso");
+
+ // Lab 2
+
+ #include <stdio.h>
+#include <stdbool.h>
+
+int main () {
+
+    int x;
+    int y;
+    int z;
+
+    bool b;
+    bool w;
+ 
+    printf ("Ingrese el valor de x: \n");
+        scanf ("%i", &x);
+    
+    printf ("Ingrese el valor de y: \n");
+        scanf ("%i", &y);
+    
+    printf ("Ingrese el valor de z: \n");
+        scanf ("%i", &z);
+    
+    printf ("Ingrese el valor de b: \n");
+        scanf ("%s", &b);
+    
+    printf ("Ingrese el valor de w: \n");
+        scanf ("%s", &w);
+
+
+     bool Expresion1;
+     Expresion1 = x % 4 == 0 ;
+
+        printf ("La expresion 1 es: %s \n", Expresion1 ? "verdadero" : "falso");
+    
+    bool Expresion2;
+     Expresion2 = x + y == 0 && y - x == (-1) * z ;
+
+         printf ("La expresion 2 es: %s \n", Expresion2 ? "verdadero" : "falso");
+
+    bool Expresion3;
+     Expresion3 = !b && w ;
+
+         printf ("La expresion 3 es: %s \n", Expresion3 ? "verdadero" : "falso");
+
+ // Lab 3
+
+#include <stdio.h>
+
+int main () {
+
+int x;
+int y;
+
+// 3a
+
+printf ("Introduzca el valor de x: \n");
+    scanf ("%i", &x);
+ x = 5 ;
+    int Ejecucion1;
+        Ejecucion1 = x ;
+
+ printf ("El valor de x es: %i \n", Ejecucion1);
+
+// 3b
+
+printf ("Introduzca el valor x: \n");
+    scanf ("%i", &x);
+
+printf ("Introduzca el valor y: \n");
+    scanf ("%i", &y);
+
+ x = x + y ;
+
+ y = y + y ;
+
+ printf ("El valor final de x es: %i \n", x);
+
+ printf ("El valor final de y es: %i \n", y);
+
+// 3c
+
+printf ("Introduzca el valor de x: \n");
+    scanf ("%i", &x);
+
+printf ("Introduzca el valor de y: \n");
+    scanf ("%i", &y);
+
+ y = y + y ;
+
+ x = x + y ;
+
+ printf ("El valor final de x es: %i \n", x);
+
+ printf ("El valor final de y es: %i \n", y);
+
+ //Lab 4
+
+#include <stdio.h>
+
+ int main () {
+
+ int x;
+ int y;
+
+ printf ("Ingrese el valor de x: \n");
+    scanf ("%i", &x);
+
+ printf ("Ingrese el valor de y: \n");
+    scanf ("%i", &y);
+ 
+ y,x = y + y , x + y ;
+
+ printf ("El valor final de x es: %i \n", x);
+
+ printf ("El valor final de y es %i", y);
+
+ // No corre correctamente en la terminal
+
+ // Lab 5
+
+ #include <stdio.h>
+
+int main () {
+
+int x;
+int y;
+
+// 3a
+
+printf ("Ingrese el valor de x: \n");
+    scanf ("%i", &x);
+
+printf ("Ingrese el valor de y: \n");
+    scanf ("%i", &y);
+
+if (x >= y) {
+
+    x = 0 ;
+
+    printf ("El nuevo valor de x es: %i \n", x);
+
+}
+
+if (x <= y) {
+
+    x = 2 ;
+
+    printf ("El nuevo valor de x es: %i \n", x);
+
+}
+
+// 3b
+
+// No entiendo la diferencia de los códigos
+
+ // Lab 6
+
+ int main (){
+
+ int x;
+ int y;
+ int m;
+ int z;
+
+ printf ("Ingrese el valor de x \n");
+    scanf ("%i", &x);
+
+ printf ("Ingrese el valor de y \n");
+    scanf ("%i", &y);
+
+ printf ("Ingrese el valor de m \n");
+    scanf ("%i", &m);
+
+ printf ("Ingrese el valor de z \n");
+    scanf ("%i", &z);
+
+ if (x < y) {
+ 
+ m = x ;
 
  }
+
+ if (x >= y) {
+ 
+ m = y ;
+
+ }
+
+ printf ("El nuevo valor de m es: %i \n", m);
+
+ if (m < z ){
+
+ }
+
+ if (m >= z) {
+
+ m = z ;
+
+ }
+
+ printf ("El nuevo valor de m es: %i \n", m);
+
+ printf ("El valor final de x es: %i \n", x);
+ printf ("El valor final de y es: %i \n", y);
+ printf ("El valor final de z es: %i \n", z);
+ printf ("El valor final de m es: %i \n", m);
+
+ // Lab 7
+
+#include <stdio.h>
+#include <stdbool.h>
+
+int main (){
+
+// 5a
+
+ int i;
+
+ printf ("Ingrese al valor de i: \n");
+    scanf ("%i", &i);
+
+  do {
+
+  printf ("El valor de i es: %i \n", i);
+   i--;
+
+  i = i - 1 ;
+
+  } while (i != 0);
+
+  printf ("El bucle ah terminado.");
+ 
+}
 
