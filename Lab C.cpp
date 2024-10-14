@@ -375,6 +375,40 @@ printf ("Ingrese al valor de i: \n");
   } 
 
   printf ("El bucle ha terminado, el valor final de i es: %i", i);
+
+ // Lab 8
+// a)
+
+ #include <stdio.h>
+
+int main (){
+
+int x;
+int y;
+int i;
+
+printf ("Ingrese el valor de x: ");
+    scanf ("%d", &x);
+
+printf ("Ingrese el valor de y: ");
+    scanf ("%d", &y);
+
+printf ("Ingrese el valor de i: ");
+    scanf ("%d", &i);
+
+ i = 0 ;
+
+ while (x >= y) {
+
+    x = x - y ;
+    i = i + 1 ;
+
+    printf ("El valor final de x es: %d \n", x);
+    printf ("El valor final de y es: %d \n", y);
+    printf ("El valor final de i es: %d \n", i);
+
+ }
+return 0;
  
 }
 
