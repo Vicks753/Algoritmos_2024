@@ -409,6 +409,39 @@ printf ("Ingrese el valor de i: ");
 
  }
 return 0;
+
+// b)
+#include <stdio.h>
+#include <stdbool.h>
+
+int main (){
+
+int x;
+int i;
+bool res;
+
+printf ("Ingrese el valor de x: \n");
+    scanf ("%i", &x);
+
+printf ("Ingrese el valor de i: \n");
+    scanf ("%i", &i);
+
+printf ("Ingrese el valor de res: \n");
+    scanf ("%i", &res);
+
+ i = 2 ;
+ res = true ;
+
+ while (i < x && res){
+
+ res = res && (x % i != 0) ;
+ i = i + 1;
+
+ printf ("El valor final de x es: %i \n", x);
+ printf ("El valor final de i es: %i \n", i);
+ printf ("El valor final de res es: %s \n", res ? "verdadero" : "falso" );
+
+ }
  
 }
 
