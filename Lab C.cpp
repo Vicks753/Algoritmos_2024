@@ -332,16 +332,49 @@ int main (){
  printf ("Ingrese al valor de i: \n");
     scanf ("%i", &i);
 
-  do {
+ while (i != 0)
+   {
 
   printf ("El valor de i es: %i \n", i);
    i--;
 
   i = i - 1 ;
 
-  } while (i != 0);
+  } 
 
-  printf ("El bucle ah terminado.");
+  printf ("El bucle ah terminado, el valor final de i es: %i \n", i);
+
+ // 5b
+
+printf ("Ingrese al valor de i: \n");
+    scanf ("%i", &i);
+
+ while (i != 0)
+   {
+
+  printf ("El valor de i es: %i \n", i);
+
+  i = 0;
+
+  } 
+
+  printf ("El bucle ha terminado, el valor final de i es: %i \n", i);
+
+// 5c
+
+printf ("Ingrese al valor de i: \n");
+    scanf ("%i", &i);
+
+ while (i < 0)
+   {
+
+  printf ("El valor de i es: %i \n", i);
+
+  i = i - 1;
+
+  } 
+
+  printf ("El bucle ha terminado, el valor final de i es: %i", i);
  
 }
 
