@@ -444,4 +444,100 @@ printf ("Ingrese el valor de res: \n");
  }
  
 }
+#include <stdio.h>
 
+int main () {
+
+int x;
+int y;
+int z;
+int auxX;
+int auxY;
+int auxZ;
+
+printf ("Ingrese el valor de x: ");
+    scanf ("%d", &x);
+
+printf ("Ingrese el valor de y: ");
+    scanf ("%d", &y);
+
+printf ("Ingrese el valor de z: ");
+    scanf ("%d", &z);
+
+auxX = y ;
+
+auxY = y + x + z ;
+
+auxZ = y + x ;
+
+printf ("El nuevo valor de x sera: %d \n", auxX);
+printf ("El nuevo valor de y sera: %d \n", auxY);
+printf ("El nuevo valor de z sera: %d \n", auxZ);
+
+return 0 ;
+}
+#include <stdio.h>
+#include <stdbool.h>
+
+bool es_vocal (char letra) {
+
+switch (letra) {
+
+ case 'a':
+    return true ;
+
+ case 'e':
+    return true ;
+
+ case 'i':
+    return true ;
+
+ case 'o':
+    return true ;
+
+ case 'u':
+    return true ;
+
+ case 'A':
+    return true ;
+
+ case 'E':
+    return true ;
+
+ case 'I':
+    return true ;
+
+ case 'O':
+    return true ;
+
+ case 'U':
+    return true ;
+
+ default : 
+    return false ;
+
+}
+}
+
+int main () {
+
+char letra;
+
+printf ("Ingrese una vocal: ");
+    scanf ("%c", &letra);
+
+ if (es_vocal(letra)) {
+
+ printf ("Es vocal %c", letra);
+
+ }
+ else {
+
+ printf ("No es vocal %c", letra);
+ }
+
+// printf("%c es vocal? %s", letra, es_vocal(letra)? "verdadero" : "falso");
+
+return 0;
+
+}
