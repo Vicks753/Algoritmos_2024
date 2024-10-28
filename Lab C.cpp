@@ -541,3 +541,54 @@ printf ("Ingrese una vocal: ");
 return 0;
 
 }
+#include <stdio.h>
+
+int main(){
+
+int x;
+int y;
+int z;
+int aux0;
+int aux1;
+
+printf ("Ingrese el valor de x:");
+    scanf ("%d", &x);
+
+printf ("Ingrese el valor de y:");
+    scanf ("%d", &y);
+
+if (x < y) {
+
+printf ("x es el minimo \n");
+
+}
+
+if (x == y) {
+
+printf ("Ambos numeros son iguales \n");
+
+}
+
+if (x > y) {
+
+printf ("y es el minimo \n");
+
+}
+
+printf ("Ingrese el valor de z: ");
+    scanf ("%d", &z);
+
+if (z < 0) {
+
+ aux1 = z * (-1) ;
+
+printf ("El valor absoluto de z es: %d", aux1);
+
+}
+else {
+
+printf ("El valor absoluto de z es: %d", z);
+
+}
+
+}
