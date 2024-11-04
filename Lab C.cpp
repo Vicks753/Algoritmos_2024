@@ -1233,3 +1233,35 @@ int main ()
         printf ("El resultado es: %d \n", suma);
     return 0;
 }
+
+#include <stdio.h>
+#include <assert.h>
+
+int suma_primeros_n_elementos(int a[], int tam, int n) {
+    // Verificar que n es menor o igual a tam
+    assert(n <= tam);
+
+    int suma = 0;
+    for (int i = 0; i < n; i++) {
+        suma += a[i];
+    }
+    return suma;
+}
+
+int main() {
+    int arreglo[] = {1, 2, 3, 4, 5};
+    int tam = sizeof(arreglo) / sizeof(arreglo[0]);
+    int n;
+
+    printf("Ingresa el valor de n (menor o igual a %d): ", tam);
+    scanf("%d", &n);
+
+    if (n <= tam) {
+        int resultado = suma_primeros_n_elementos(arreglo, tam, n);
+        printf("La suma de los primeros %d elementos es: %d\n", n, resultado);
+    } else {
+        printf("El valor de n debe ser menor o igual a %d.\n", tam);
+    }
+
+    return 0;
+}
