@@ -444,6 +444,8 @@ printf ("Ingrese el valor de res: \n");
  }
  
 }
+
+// Lab 8
 #include <stdio.h>
 
 int main () {
@@ -476,6 +478,9 @@ printf ("El nuevo valor de z sera: %d \n", auxZ);
 
 return 0 ;
 }
+
+///// Practico 4 ///////
+// Lab 3
 #include <stdio.h>
 #include <stdbool.h>
 
@@ -541,6 +546,8 @@ printf ("Ingrese una vocal: ");
 return 0;
 
 }
+
+// Lab 4
 #include <stdio.h>
 
 int main(){
@@ -593,6 +600,8 @@ printf ("El valor absoluto de z es: %d", z);
 
 }
 
+// Lab 5
+
 #include <stdio.h>
 
 int suma_hasta (int n) {
@@ -625,6 +634,8 @@ printf ("La suma hasta n es: %d", resultado);
 }
 
 }
+
+// Lab 6
 #include <stdio.h>
 #define N 5
 
@@ -699,6 +710,8 @@ int main()
 
     return 0;
 }
+
+// Lab 7
 #include <stdio.h>
 
 
@@ -740,6 +753,8 @@ int main ()
 
     imprimir_arreglo (3, a);
 }
+
+// Lab 8
 #include <stdio.h>
 
 void pedir_arreglo (int n_max, int a[])
@@ -786,6 +801,7 @@ int main ()
 
     return 0;
 }
+// Lab 9
 #include <stdio.h>
 
 struct div_t 
@@ -836,6 +852,7 @@ int main ()
 
     printf ("El resultado es %d, con resto %d", resultado.cociente, resultado.resto);
 }
+// Lab 10
 #include <stdio.h>
 #include <stdbool.h>
 
@@ -905,6 +922,8 @@ int main ()
         printf ("No existe multiplo de %d", m);
     }
 }
+
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <assert.h>
@@ -1007,5 +1026,210 @@ int main ()
     printf ("El nuevo valor de j es: %d \n", j);
     printf ("El nuevo valor de k es: %d \n", k);
 
+    return 0;
+}
+// Lab P1
+#include <stdio.h>
+
+struct comp_t
+{
+    int menores;
+    int mayores;
+    int iguales;
+};
+
+struct comp_t cuantos (int tam, int a[], int elem)
+{
+    struct comp_t f1;
+
+    int i = 0; 
+    f1.menores = 0;
+    f1.mayores = 0;
+    f1.iguales = 0;
+
+    while (i < tam)
+    {
+        if (a[i] < elem)
+        {
+            f1.menores = f1.menores + 1;
+        }
+
+        if (a[i] == elem)
+        {
+            f1.iguales = f1.iguales + 1;
+        }
+
+        if (a[i] > elem)
+        {
+            f1.mayores = f1.mayores + 1;
+        }
+        i ++;
+    }
+    return f1;
+}
+
+int main ()
+{
+    int a[5];
+    int i = 0;
+    int elemento;
+    
+    printf ("Ingrese los elementos de la array: \n");
+    while (i < 5)
+    {
+        printf ("elemento [%d]: ", i + 1);
+            scanf ("%d", &a[i]);
+        i ++;
+    }
+
+    printf ("Ingrese el elemento a comparar: ");
+        scanf ("%d", &elemento);
+
+    struct comp_t resultado = cuantos (5, a, elemento);
+
+    printf ("Hay %d elementos menores, %d elementos iguales y %d elementos mayores a %d", resultado.menores, resultado.iguales, resultado.mayores, elemento);
+
+    return 0;
+}
+
+// Lab p2
+#include <stdio.h>
+#include <assert.h>
+
+int main ()
+{
+    int i;
+    int j;
+    int k;
+
+    printf("Ingrese los valores de las variables: \n");
+    printf("Inngrese el valor de [i]: ");
+        scanf ("%d", &i);
+    printf("Inngrese el valor de [j]: ");
+        scanf ("%d", &j);
+    printf("Inngrese el valor de [k]: ");
+        scanf ("%d", &k);
+
+     assert (i > 0 && j > 0 && k > 0);
+
+    int auxi = i;
+    int auxj = j;
+    int auxk = k;
+    
+    i = auxi * auxj;
+    j = auxj * auxk;
+    k = auxk * auxi;
+
+    assert (i == auxi * auxj && j == auxj * auxk && k == auxk * auxi);
+
+    printf ("El nuevo valor de i es: %d \n", i);
+    printf ("El nuevo valor de j es: %d \n", j);
+    printf ("El nuevo valor de k es: %d \n", k);
+
+    return 0;
+}
+// Lab P3
+#include <stdio.h>
+#include <stdbool.h>
+#include <assert.h>
+#define N 5
+
+void llena_con_notas (int a[], int tam)
+{
+    int resultado = 0, i = 0;
+
+    printf ("Ingrese los valores de la array: \n");
+    while (i < tam)
+    {
+        printf ("posicion [%d]: ", i + 1);
+            scanf ("%d", &a[i]);
+        i ++;
+
+        resultado = 0 + a[i];
+    }
+    printf ("\n");
+}
+
+void imprimir_arreglo (int a[], int tam)
+{
+    int i = 0;
+
+    printf ("La array es: \n");
+    while (i < tam)
+    {
+        printf ("elemento [%d]: %d \n", i, a[i]);
+        i ++;
+    }
+
+}
+
+bool hay_mas_de_3_aprobados (int a[], int tam)
+{
+    int i = 0;
+    int contador = 0;
+
+    while (i < tam)
+    {
+        if (a[i] > 6 && a[i] < 10)
+        {
+            contador ++;
+        }
+
+        i ++;
+    }
+    return contador;
+}
+
+int main ()
+{
+    int a[N];
+    assert (N > 0);
+
+    llena_con_notas (a, N);
+
+    imprimir_arreglo (a, N);
+
+    if (hay_mas_de_3_aprobados (a, N))
+    {
+        printf ("Verdadero: Hay 3 o mas aprobados \n");
+    }
+    else 
+    {
+        printf ("Falso: no hay mas de 3 aprobados \n");
+    }
+}
+
+// Lab P4
+#include <stdio.h>
+
+int sumatoria (int tam, int a[])
+{
+    int i = 0;
+    int resultado = 0;
+        // Necesito una variable donde guardar la suma de los elementos
+
+    while (i < tam)     // Controlo que no se salga de la array
+    {
+        resultado = resultado + a[i];       // Hay que sumar los elementos en la array
+        i++;
+    }
+    return resultado;           // Necesito que me devuelva con que trabajar
+}
+
+int main ()
+{
+    int a[5];           // Defino el largo de la array
+    int i = 0;
+
+    printf ("Ingrese los elementos que desea sumar: \n");       // Solicito al usuario los elementos de a la array a sumar
+    while (i < 5)       // Controlo que no se salgan de la array
+    {
+        printf ("Elemento [%d]: ", i + 1);
+            scanf ("%d", &a[i]);
+        i++;
+    }
+
+    int suma = sumatoria (5, a);
+        printf ("El resultado es: %d \n", suma);
     return 0;
 }
