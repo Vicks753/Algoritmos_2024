@@ -239,7 +239,10 @@ existeDivisor n xs = not (null xs) && existe2 xs (esDivisor n)
 esPrimo :: Int -> Bool
 esPrimo n = not (existeDivisor n [2..(n-1)])
 -- Toma al 0 y esto es incorrecto
-
+esPrimo2 :: Int -> Bool
+esPrimo2 n
+    | n < 2 = False
+    | otherwise = null [x | x <- [2..(n-1)], n `mod` x == 0]
 ---
 
 factorial2 :: Int -> Int
