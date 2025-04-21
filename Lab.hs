@@ -497,4 +497,4 @@ esCategoria (Motociclismo (cat, _, _)) x = cat == x
 
 findeCat :: [EspectaculoMotor] -> String -> [EspectaculoMotor]
 findeCat [] _ = []
-findeCat xs y = filter (esCategoria )
+findeCat xs y = filter (`esCategoria` y ) xs
