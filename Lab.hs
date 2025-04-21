@@ -470,3 +470,31 @@ Requiere deriving Ord
 -}
 menorIgual :: NotaMusical -> NotaMusical -> Bool
 menorIgual (Nota n a) (Nota m b) = sonidoCromatico (Nota n a) <= sonidoCromatico (Nota m b) 
+
+-- Parcial 2024
+data EspectaculoMotor = Automovilismo (Categoria, Circuito, Horario, Duracion)
+                        | Motociclismo (Categoria,Horario, Vueltas) 
+    deriving (Eq,Ord)
+
+type Categoria = String 
+type Circuito = String 
+type Horario = Int
+type Duracion = Int
+type Vueltas = Int
+
+formula1 :: EspectaculoMotor
+formula1 = Automovilismo ("Formula 1", "Singapur", 9, 120)
+
+motoGP :: EspectaculoMotor
+motoGP = Motociclismo ("MotoGP", 11, 30)
+
+carreraLarga :: EspectaculoMotor -> Bool
+carreraLarga (Automovilismo (_,_,_,d)) = d >= 180
+
+esCategoria :: EspectaculoMotor -> String -> Bool
+esCategoria (Automovilismo (cat, _, _, _)) x = cat == x
+esCategoria (Motociclismo (cat, _, _)) x = cat == x
+
+findeCat :: [EspectaculoMotor] -> String -> [EspectaculoMotor]
+findeCat [] _ = []
+findeCat xs y = filter (esCategoria )
