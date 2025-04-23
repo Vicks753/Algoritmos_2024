@@ -409,8 +409,10 @@ cifradoAmericano Si = "B"
 usando polimorfismo ad hoc (f :: (Ord a) => [a] -> a) la funcion minimoElemento que calcula (de manera recursiva) cual es el menor valor de una lista de tipo [a]. Asegurate que solo este definida para listas no vacıas.
 Polimorfismo ad hoc, definición: Una función que puede tener distintos comportamientos dependiendo del tipo concreto con que se use.
 -}
-minimoElemento :: (Ord a, Num a) => [a] -> a
-minimoElemento xs = minimum xs
+minimoElemento :: (Ord a, Bounded a) => [a] -> a
+minimoElemento [] = maxBound
+minimoElemento [x] = x
+minimoElemento (x:xs) = min x (minimoElemento xs)
 
 {-
 De manera tal que el caso base de la recursion sea el de la lista vacıa. Para ello revisa la clase Bounded. 
