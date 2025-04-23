@@ -473,6 +473,13 @@ Requiere deriving Ord
 menorIgual :: NotaMusical -> NotaMusical -> Bool
 menorIgual (Nota n a) (Nota m b) = sonidoCromatico (Nota n a) <= sonidoCromatico (Nota m b) 
 
+data Cola = VaciaC | Encolada Deportista Cola
+
+atender :: Cola -> Maybe Cola
+atender VaciaC = Nothing
+atender (Encolada _ c) = Just c 
+-- Elimina a la primer persona (deportista) en la cola, como si deportista Cola fuese (x:xs)
+
 -- Parcial 2024
 data EspectaculoMotor = Automovilismo (Categoria, Circuito, Horario, Duracion)
                         | Motociclismo (Categoria,Horario, Vueltas) 
