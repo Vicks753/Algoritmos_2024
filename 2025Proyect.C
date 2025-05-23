@@ -932,3 +932,184 @@ void pedir_arreglo (int tam, float a[]) {
         i++;
     }
 }
+
+/// PARCIALES ///
+// Parcial 11 - 11 - 2024 (tema D)
+#include <stdio.h>
+#include <assert.h>
+#define N 5
+void pedir_arreglo (int tam, int a []);
+int prod_menores (int tam, int a[], int n);
+
+int main () {
+    int a[N], elem;
+
+    pedir_arreglo (N, a);
+    printf ("Ingrese el elemento que desea comparar: \n");
+        scanf ("%d", &elem);
+    assert (elem > 0);
+    printf ("El producto de los elementos menores o iguales a %d es: %d ", elem, prod_menores (N, a, elem));
+
+    return 0;
+}
+
+int prod_menores (int tam, int a[], int n) {
+    int cantidad = 1;
+    for (int i = 0; i < tam; i ++) {
+        if (a[i] > n) {
+
+        } else {
+            cantidad = cantidad * a[i];
+        }
+    }
+    return cantidad;
+}
+
+void pedir_arreglo (int tam, int a[]) {
+   int i = 0; 
+    while (i < tam) {
+        printf ("Ingrese la posicion [%d]: \n", i + 1);
+        scanf ("%d", &a[i]);
+        i++;
+    }
+}
+
+// Parcial 11 - 11 - 24 (Tema B)
+#include <stdio.h>
+#include <assert.h>
+#define N 4
+
+void pedir_arreglo (int tam, int a []);
+int sum_even (int tam, int a[], int n);
+
+int main () {
+    int a[N], elem;
+
+    pedir_arreglo (N, a);
+    printf ("Ingrese el elemento que desea comparar: \n");
+        scanf ("%d", &elem);
+    assert (elem >= 0 && elem <= N);
+    printf ("La suma de los primeros %d elementos pares es %d: \n", elem, sum_even (N, a, elem));
+
+    return 0;
+}
+
+void pedir_arreglo (int tam, int a[]) {
+   int i = 0; 
+    while (i < tam) {
+        printf ("Ingrese la posicion [%d]: \n", i + 1);
+        scanf ("%d", &a[i]);
+        i++;
+    }
+}
+
+int sum_even (int tam, int a[], int n) {
+   int resultado = 0, count = 0;
+    for (int i = 0; i < tam; i ++) {
+        if (a[i] % 2 == 0) {
+            resultado = resultado + a[i];
+        }
+    }
+    return resultado;
+}
+
+// Utilizo count para llevar la cuenta de cuantos elementos PARES voy sumando
+// Si no usas count, solo sumarías los pares que estén en las primeras n posiciones, pero la consigna es sumar los primeros n pares que aparecen en el arreglo, estén donde estén.
+
+// Parcial 27 - 05- 24 (Tema D)
+#include <stdio.h>
+#include <assert.h>
+#include <stdbool.h>
+#define N 3
+
+void asignacion (int *x, int *y, int *z);
+void llena_con_char (char a[], int tam);
+bool es_vocal (char letra);
+bool hay_mas_de_2_constantes (char a[], int tam);
+
+
+int main () {
+    int x, y, z;
+    char a[N];
+    assert (N > 0);
+    
+    printf ("Ingrese el valor de x: \n");
+        scanf ("%d", &x);
+    printf ("Ingrese el valor de y: \n");
+        scanf ("%d", &y);
+    printf ("Ingrese el valor de z: \n");
+        scanf ("%d", &z);
+
+
+    int X = x, Y = y, Z = z;
+    
+    assert (Y > 0);
+
+    asignacion (&x, &y, &z);
+        // Utilizamos & para acceder a la dirección de memoria de las variables.
+
+    assert (Y == x);
+    assert (X + Y - Z == y) ; 
+    assert (X * (1 + (Y * Y)) == z);
+
+    printf ("Los nuevos valores son: \n");
+    printf ("El nuevo valor de x es: %d \n", x);
+    printf ("El nuevo valor de y es: %d \n", y);
+    printf ("El nuevo valor de z es: %d \n", z);
+
+    llena_con_char (a, N);
+    
+    printf ("¿Hay mas de dos consonantes?: %s", hay_mas_de_2_constantes (a, N) ? "true" : "false");
+
+    return 0;
+}
+
+void asignacion (int *x, int *y, int *z) {
+    int temp_x = *x;
+    int temp_y = *y;
+    int temp_z = *z;
+   
+    *x = temp_y;
+    *y = temp_x + temp_y - temp_z;
+    *z = temp_x * (1 + temp_y * temp_y);
+}
+
+// asignacion requiere utilizar punteros para poder acceder a los valores originales de x, y, z.
+// los punteros los voy a utilizar cuando necesita cambiar el valor de una variable (que ya viene asignada por parámetro) en una función externa 
+
+void llena_con_char (char a[], int tam) {
+    int i = 0;
+    while (i < tam) {
+        printf ("Ingrese el char en la posicion [%d]: \n", i + 1);
+        scanf (" %c", &a[i]);
+        i ++;
+    }
+}
+// en el scan " %c" debemos dejar el espacio para que no cuente el salto de linea como un caracter y tome el ingresado.
+
+bool es_vocal (char letra) {
+    if (letra == 'a' || letra == 'e' || letra == 'i' || letra == 'o' || letra == 'u' ||
+        letra == 'A' || letra == 'E' || letra == 'I' || letra == 'O' || letra == 'U') {
+            return true;
+        } else {
+            return false;
+        }
+}
+
+bool hay_mas_de_2_constantes (char a[], int tam) {
+    int count = 0, i = 0;
+
+    while (i < tam) {
+        if (!es_vocal (a[i])) {
+            count = count + 1;
+        }
+        i ++;
+    }
+
+    if (count <= 2) {
+        return false;
+    } else {
+        return true;
+    }
+} 
+
