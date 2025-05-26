@@ -1113,3 +1113,119 @@ bool hay_mas_de_2_constantes (char a[], int tam) {
     }
 } 
 
+// Parcial 4
+#include <stdio.h>
+#include <assert.h>
+#define N 4
+
+void pedir_arreglo (int tam, int a []);
+
+typedef struct stonks {
+    int sube;
+    int baja;
+} stonks ;
+
+struct stonks stonks_master (int tam, int a[]) {
+    stonks s;
+
+    int i = 0;
+    s.sube = 0;
+    while (i < tam - 1) {
+        if (a[i] <= a[i + 1]) {
+            s.sube = s.sube + 1;
+        }
+        i ++;
+    }
+
+    i = 0;
+    s.baja = 0;
+    while (i < tam - 1) {
+        if (a[i] > a[i + 1]) {
+            s.baja = s.baja + 1;
+        }
+        i ++;
+    }
+    return s;
+};
+
+int main () {
+    int a[N];
+    pedir_arreglo (N, a);
+
+    stonks s1 = stonks_master (N, a);
+    printf ("Los stonks suben %d veces \n", s1.sube);
+    printf ("Los stokns bajan %d veces \n", s1.baja);
+
+    return 0;
+}
+
+void pedir_arreglo (int tam, int a[]) {
+   int i = 0; 
+    while (i < tam) {
+        printf ("Ingrese la posicion [%d]: \n", i + 1);
+        scanf ("%d", &a[i]);
+        i++;
+    }
+}
+
+// Parcial 5
+#include <stdio.h>
+#include <limits.h>
+#include <stdbool.h>
+#define N 3
+
+void pedir_arreglo (int a[], int tam);
+
+typedef struct datos {
+    bool es_divisible_por_2;
+    int menor_divisible_por_2;
+} datos;
+
+struct datos hay_divisible (int tam, int a[]) {
+    datos d;
+    int i = 0;
+    d.es_divisible_por_2 = 0;
+    d.menor_divisible_por_2 = INT_MAX;
+
+    while (i < tam) {
+        if (a[i] % 2 == 0) {
+            d.es_divisible_por_2 = true;
+        } else {
+            d.es_divisible_por_2 = false;
+        }
+        if (a[i] % 2 == 0 && a[i] < d.menor_divisible_por_2) {
+            d.menor_divisible_por_2 = a[i];
+        } 
+        i ++;
+    }
+    return d;
+}
+
+int main () {
+    int a[N];
+
+    pedir_arreglo (a, N);
+
+    datos d1 = hay_divisible (N, a);
+    if (d1.es_divisible_por_2) {
+        printf ("Hay un numero divisible por 2 \n");
+    } else {
+        printf ("No hay numeros divisibles por 2 \n");
+    }
+    if (d1.menor_divisible_por_2 != INT_MAX) {
+    printf ("El menor numero divisible por dos del array es: %d", d1.menor_divisible_por_2);
+    } else {
+        printf ("No hay un menor elemento divisible por dos \n");
+    }
+
+    return 0;
+}
+
+void pedir_arreglo (int a[], int tam) {
+   int i = 0; 
+    while (i < tam) {
+        printf ("Ingrese la posicion [%d]: \n", i + 1);
+        scanf ("%d", &a[i]);
+        i++;
+    }
+}
