@@ -1229,3 +1229,181 @@ void pedir_arreglo (int a[], int tam) {
         i++;
     }
 }
+// A
+#include <stdio.h>
+#include <assert.h>
+#include <stdbool.h>
+#include <float.h>
+#define N 8
+
+void pedir_arreglo (int a[], int tam);
+bool hay_par_e_impar (int tam, int a[]);
+
+typedef struct producto {
+    int codigo;
+    int cantidad;
+    float precio;
+} Producto;
+
+Producto crear_producto (int codigo, int cantidad, float precio) {
+    Producto p;
+    p.codigo = codigo;
+    assert (codigo > 0);
+    p.cantidad = cantidad;
+    assert (cantidad > 0);
+    p.precio = precio;
+
+    return p;
+};
+
+int main () {
+    int a[N];
+
+    pedir_arreglo (a, N);
+
+    if (hay_par_e_impar (N, a)) {
+        printf ("Existe al menos un numero par y un numero impar en el arreglo \n");
+    } else {
+        printf ("No hay al menos un par y un impar en el arreglo \n");
+    }
+
+    int codigo, cantidad;
+    float precio;
+
+    printf ("Ingrese el codigo del producto: \n");
+        scanf ("%d", &codigo);
+    printf ("Ingrese el stock del producto: \n");
+        scanf ("%d", &cantidad);
+    printf ("Ingrese el precio del producto: \n");
+        scanf ("%f", &precio);
+    
+    Producto p = crear_producto (codigo, cantidad, precio);
+
+    int pedido;
+    printf ("Ingrese la cantidad de productos que desea comprar: \n");
+        scanf ("%d", &pedido);
+    
+    float monto = p.precio * pedido;
+
+    printf ("Producto %d, total %f \n", codigo, monto);
+
+    return 0;
+}
+
+void pedir_arreglo (int a[], int tam) {
+   assert (tam > 0);
+    int i = 0; 
+    while (i < tam) {
+        printf ("Ingrese la posicion [%d]: \n", i + 1);
+        scanf ("%d", &a[i]);
+        i++;
+    }
+}
+
+bool hay_par_e_impar (int tam, int a[]) {
+    assert (tam > 0);
+    int i = 0, pares = 0, impares = 0;
+
+    while (i < tam) {
+        if (a[i] % 2 == 0) {
+            pares = pares + 1;
+        } else {
+            impares = impares + 1;
+        }
+        i = i + 1;
+    }
+
+    if (pares > 0 && impares > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// B
+#include <stdio.h>
+#include <assert.h>
+#define N 5
+
+void pedir_arreglo (int a[], int tam);
+int producto_pares (int tam, int a[], int n);
+
+typedef struct camion {
+    int peso_maximo;
+    int largo;
+    int altura;
+} Camion;
+
+Camion crear_camion (int peso_maximo, int largo, int altura) {
+    Camion c;
+
+    c.peso_maximo = peso_maximo;
+    assert (peso_maximo > 1);
+    c.largo = largo;
+    assert (largo > 3);
+    c.altura = altura;
+    assert (altura > largo);
+
+    return c;
+};
+
+int main () {
+    int a[N], n;
+
+    pedir_arreglo (a, N);
+
+    printf("Ingrese el numero que desee multiplicar: \n");
+        scanf ("%d", &n);
+    
+    printf ("El resultado es: %d \n",producto_pares (N, a, n));
+
+    int peso_maximo, largo, altura;
+
+    printf ("Ingrese el peso maximo del camion en toneladas: \n");
+        scanf ("%d", &peso_maximo);
+    printf ("Ingrese el largo del camion: \n");
+        scanf ("%d", &largo);
+    printf ("Ingrese la altura del camion: \n");
+        scanf ("%d", &altura);
+
+    Camion c = crear_camion (peso_maximo, largo, altura);
+
+    int peso_cargamento;
+
+    printf ("Ingrese el peso del cargamento total en toneladas: \n");
+        scanf ("%d", &peso_cargamento);
+
+    int cantidad_camiones; 
+    if  (peso_cargamento % peso_maximo != 0) {
+        cantidad_camiones = (peso_cargamento / c.peso_maximo) + 1;
+    } else {
+        cantidad_camiones = peso_cargamento / c.peso_maximo;
+    }
+
+    printf ("Necesito %d camiones de tipo Camion A para transportar el cargamento de %d toneladas \n", cantidad_camiones, peso_cargamento);
+    
+    return 0;
+}
+
+void pedir_arreglo (int a[], int tam) {
+   assert (tam > 0);
+    int i = 0; 
+    while (i < tam) {
+        printf ("Ingrese la posicion [%d]: \n", i + 1);
+        scanf ("%d", &a[i]);
+        i++;
+    }
+}
+
+int producto_pares (int tam, int a[], int n) {
+    int i = 0;
+    int resultado = 0;
+    while (i < tam) {
+        if (a[i] % 2 == 0) {
+            resultado = resultado + a[i];
+        }
+        i = i + 1;
+    }
+    resultado = resultado * n; 
+    return resultado;
+}
