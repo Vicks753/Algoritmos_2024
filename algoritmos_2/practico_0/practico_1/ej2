@@ -1,0 +1,212 @@
+// Carpeta sort //
+
+#include <assert.h>
+#include <stdbool.h>
+#include <stdio.h>
+
+#include "array_helpers.h"
+#include "sort_helpers.h"
+#include "sort.h"
+
+
+static void quick_sort_rec(int a[], unsigned int izq, unsigned int der) {
+ unsigned int ppiv = a[0];
+
+ if (izq > der){
+    partition (a, izq, der);
+    quick_sort_rec (a, izq, ppiv - 1);
+    quick_sort_rec (a, ppiv + 1, der);
+ }
+}
+
+void quick_sort(int a[], unsigned int length) {
+    quick_sort_rec(a, 0, (length == 0) ? 0 : length - 1);
+}
+
+// Carpeta sort_helpers //
+
+#ifndef _SORT_HELPERS_H
+#define _SORT_HELPERS_H
+
+#include <stdbool.h>
+
+bool goes_before(int x, int y);
+/* Abstract total order for sorting algorithms */
+
+bool array_is_sorted(int a[], unsigned int length);
+/* Checks if the array 'a' is in ascending order */
+
+void swap(int a[], unsigned int i, unsigned int j);
+/* Exchanges elements of array 'a' in the given positions 'i' and 'j'
+   Array remains the same if the two positions are the same
+*/
+
+unsigned int partition(int a[], unsigned int izq, unsigned int der);
+/* PRECONDITION:
+   0 <= izq < der < length of the array
+
+   Permutes elements of a[izq..der] and returns pivot such that:
+     - izq <= pivot <= der
+     - elements in a[izq,pivot) all 'go_before' (according to function goes_before) a[pivot]
+     - a[pivot] 'goes_before' all the elements in a(pivot,der]
+*/
+
+#endif
+
+// Carpeta array_helpers //
+
+#include <assert.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+void array_copy(int copy[], int array[], unsigned int length) {
+    for (unsigned int i = 0u; i < length; ++i) {
+        copy[i] = array[i];
+    }
+}
+
+unsigned int array_value_count(int a[], unsigned int length, int value) {
+    unsigned int count = 0u;
+    for (unsigned int i = 0u; i < length; ++i) {
+        if (a[i] == value) {
+            ++count;
+        }
+    }
+    return count;
+}
+
+void array_dump(int a[], unsigned int length) {
+    fprintf(stdout, "%u\n", length);
+    for (unsigned int i = 0u; i < length; ++i) {
+        fprintf(stdout, "%i", a[i]);
+        if (i < length - 1) {
+            fprintf(stdout, " ");
+        } else {
+            fprintf(stdout, "\n");
+        }
+    }
+}
+
+
+bool array_is_permutation_of(int a[], int b[], unsigned int length) {
+    unsigned int i = 0u;
+    bool result = true;
+    while (i < length && result) {
+        unsigned int a_count = array_value_count(a, length, a[i]);
+        unsigned int b_count = array_value_count(b, length, a[i]);
+        result = (a_count == b_count);
+        ++i;
+    }
+    return result;
+}
+
+unsigned int array_from_file(int array[],
+                             unsigned int max_size,
+                             const char *filepath) {
+    FILE *file = NULL;
+    file = fopen(filepath, "r");
+    if (file == NULL) {
+        fprintf(stderr, "File does not exist.\n");
+        exit(EXIT_FAILURE);
+    }
+    unsigned int i = 0u;
+    unsigned int size = 0u;
+    int res = 0;
+    res = fscanf(file, " %u ", &size);
+    if (res != 1) {
+        fprintf(stderr, "Invalid array.\n");
+        exit(EXIT_FAILURE);
+    }
+    if (size > max_size) {
+        fprintf(stderr, "Allowed size is %d.\n", max_size);
+        exit(EXIT_FAILURE);
+    }
+    while (i < size) {
+        res = fscanf(file," %d ", &(array[i]));
+        if (res != 1) {
+            fprintf(stderr, "Invalid array.\n");
+            exit(EXIT_FAILURE);
+        }
+        ++i;
+    }
+    fclose(file);
+    return size;
+}
+
+// Carpeta main //
+
+/* First, the standard lib includes, alphabetically ordered */
+#include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+/* Then, this project's includes, alphabetically ordered */
+#include "array_helpers.h"
+#include "sort_helpers.h"
+#include "sort.h"
+
+/* Maximum allowed length of the array */
+static const unsigned int MAX_SIZE = 100000u;
+
+void print_help(char *program_name) {
+    /* Print the usage help of this program. */
+    printf("Usage: %s <input file path>\n\n"
+           "Sort an array given in a file in disk.\n"
+           "\n"
+           "The input file must have the following format:\n"
+           " * The first line must contain only a positive integer,"
+           " which is the length of the array.\n"
+           " * The second line must contain the members of the array"
+           " separated by one or more spaces. Each member must be an integer."
+           "\n\n"
+           "In other words, the file format is:\n"
+           "<amount of array elements>\n"
+           "<array elem 1> <array elem 2> ... <array elem N>\n\n",
+           program_name);
+}
+
+char *parse_filepath(int argc, char *argv[]) {
+    /* Parse the filepath given by command line argument. */
+    char *result = NULL;
+
+    if (argc < 2) {
+        print_help(argv[0]);
+        exit(EXIT_FAILURE);
+    }
+
+    result = argv[1];
+
+    return result;
+}
+
+int main(int argc, char *argv[]) {
+    char *filepath = NULL;
+
+    /* parse the filepath given in command line arguments */
+    filepath = parse_filepath(argc, argv);
+
+    /* create an array of MAX_SIZE elements */
+    int array[MAX_SIZE];
+
+    /* parse the file to fill the array and obtain the actual length */
+    unsigned int length = array_from_file(array, MAX_SIZE, filepath);
+
+    /* create a copy of the array, to do some checks later */
+    int copy[MAX_SIZE];
+    array_copy(copy, array, length);
+
+    quick_sort( array, length);
+
+    /* show the ordered array in the screen */
+    array_dump(array, length);
+
+    /* check if it is sorted */
+    assert(array_is_sorted(array, length));
+
+    /* check if it is a permutation of original */
+    assert(array_is_permutation_of(copy, array, length));
+    return EXIT_SUCCESS;
+}
+
+COMO COMPILAR EL ARCHIVO ???
