@@ -25,6 +25,19 @@ static void insert(int a[], unsigned int i, unsigned int length) {
 void insertion_sort(int a[], unsigned int length) {
     for (unsigned int i = 1; i < length; ++i) {
         insert(a, i, length);
+
+         minp = i;
+
+        for (j = i + 1; j < length; ++j) {
+            if (a[j] < a[minp]) {
+                minp = j;
+            }
+        }
+        
+        //swap (a, i, minp); -> PQ HAY UN SWAP ??
+    }
+
+    assert (array_is_sorted(a, length));
     }
 }
 
